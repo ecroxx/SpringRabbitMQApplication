@@ -18,8 +18,11 @@ public class RabbitmqdemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		rabbitTemplate.convertAndSend(RabbitConfig.getQueue_name(), "Hello from RabbitMQ");
+
+		rabbitTemplate.convertAndSend(RabbitConfig.getQueue_name(), "hiiii Hello from RabbitMQ");
+		rabbitTemplate.convertAndSend("exchangeTester1","keyTester1","messageOfRandomTest");
 		listener.getCountDownLatch().await(10000, TimeUnit.MICROSECONDS);
+
 	}
 
 	public static void main(String[] args) {
