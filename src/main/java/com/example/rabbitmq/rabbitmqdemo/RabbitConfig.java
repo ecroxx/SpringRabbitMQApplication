@@ -34,7 +34,6 @@ public class RabbitConfig {
        return ExchangeBuilder.topicExchange("topicExchangeBuild1")
                 .autoDelete()
                 .durable(true)
-                .internal()
                 .build();
     }
 
@@ -56,6 +55,7 @@ public class RabbitConfig {
                 .build();
     }
 
+
     @Bean
     public Exchange directExchangeBuilderFunc(){
        return ExchangeBuilder.directExchange("directExchangeBuild1")
@@ -64,10 +64,15 @@ public class RabbitConfig {
                 .build();
     }
 
-
+    @Bean
+    public Binding queueBinding1(){
+        return new Binding("queueBuilt1",Binding.DestinationType.QUEUE,"topicExchangeBuild1","topic1",null);
+    }
     @Bean
     public Binding queueBinding() {
-        return BindingBuilder.bind(queue()).to(topicExchange()).with(queue_name);
+        return BindingBuilder.bind(queue())
+                .to(topicExchange())
+                .with(queue_name);
     }
 
     @Bean

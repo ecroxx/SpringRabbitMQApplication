@@ -27,6 +27,10 @@ public class RabbitmqdemoApplication implements CommandLineRunner {
 		SimpleMessage simpleMessage=new SimpleMessage("SimpleMessageName","SimpleMessageDescription");
 		rabbitTemplate.convertAndSend("exchangeTester1","keyTester1",simpleMessage);
 
+		rabbitTemplate.convertAndSend("topicExchangeBuild1","topic1",simpleMessage);
+		rabbitTemplate.convertAndSend("rabbit_test_exchange","rabbit_test_queue",simpleMessage);
+		rabbitTemplate.convertAndSend("rabbit_test_exchange","rabbit_test_queue","**********");
+
 	}
 
 	public static void main(String[] args) {
