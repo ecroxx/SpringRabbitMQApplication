@@ -1,9 +1,6 @@
 package com.example.rabbitmq.rabbitmqdemo;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
@@ -20,9 +17,53 @@ public class RabbitConfig {
     }
 
     @Bean
+    public Queue queue1(){
+        return QueueBuilder.durable("queueBuilt1")
+                .exclusive()
+                .autoDelete()
+                .build();
+    }
+
+    @Bean
     public TopicExchange topicExchange() {
         return new TopicExchange("rabbit_test_exchange");
     }
+
+    @Bean
+    public Exchange topicExchangeBuilderFunc(){
+       return ExchangeBuilder.topicExchange("topicExchangeBuild1")
+                .autoDelete()
+                .durable(true)
+                .internal()
+                .build();
+    }
+
+    @Bean
+    public Exchange headerExchangeBuilderFunc(){
+       return ExchangeBuilder.headersExchange("headerExchangeBuild1")
+                .autoDelete()
+                .durable(true)
+                .internal()
+                .build();
+    }
+
+    @Bean
+    public Exchange fanoutExchangeBuilderFunc(){
+       return ExchangeBuilder.fanoutExchange("fanoutExchangeBuild1")
+                .autoDelete()
+                .durable(false)
+                .internal()
+                .build();
+    }
+
+    @Bean
+    public Exchange directExchangeBuilderFunc(){
+       return ExchangeBuilder.directExchange("directExchangeBuild1")
+                .autoDelete()
+                .internal()
+                .build();
+    }
+
 
     @Bean
     public Binding queueBinding() {
