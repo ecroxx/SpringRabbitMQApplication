@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class RabbitmqdemoApplication implements CommandLineRunner {
 
@@ -22,6 +23,9 @@ public class RabbitmqdemoApplication implements CommandLineRunner {
 		rabbitTemplate.convertAndSend(RabbitConfig.getQueue_name(), "hiiii Hello from RabbitMQ");
 		rabbitTemplate.convertAndSend("exchangeTester1","keyTester1","messageOfRandomTest");
 		listener.getCountDownLatch().await(10000, TimeUnit.MICROSECONDS);
+
+		SimpleMessage simpleMessage=new SimpleMessage("SimpleMessageName","SimpleMessageDescription");
+		rabbitTemplate.convertAndSend("exchangeTester1","keyTester1",simpleMessage);
 
 	}
 
